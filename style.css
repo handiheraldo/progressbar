@@ -1,0 +1,638 @@
+/* ============================================
+   DESIGN TOKENS
+   ============================================ */
+:root {
+  /* LIGHT THEME (DEFAULT) */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fcfcfd;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  --accent-green: #16a34a;
+  --accent-green-dim: #15803d;
+  --accent-green-glow: rgba(22, 163, 74, 0.2);
+  --accent-green-subtle: rgba(22, 163, 74, 0.1);
+  --accent-green-border: rgba(22, 163, 74, 0.2);
+
+  --progress-bg: #e2e8f0;
+  --progress-border: rgba(0, 0, 0, 0.06);
+  --progress-outer-bg: #ffffff;
+  --progress-outer-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1);
+  --progress-track-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+  --progress-glow-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 60%);
+  --progress-shine-gradient: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+
+  --ad-bg: rgba(0, 0, 0, 0.02);
+  --ad-border: rgba(0, 0, 0, 0.08);
+  --ad-text: #64748b;
+
+  --card-border: rgba(0, 0, 0, 0.06);
+  --card-border-hover: rgba(0, 0, 0, 0.1);
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  --card-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.06);
+
+  --ambient-1: rgba(34, 197, 94, 0.05);
+  --ambient-2: rgba(59, 130, 246, 0.03);
+  --ambient-3: rgba(168, 85, 247, 0.03);
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* DARK THEME */
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: rgba(255, 255, 255, 0.04);
+    --bg-card-hover: rgba(255, 255, 255, 0.07);
+
+    --text-primary: #f0f0f5;
+    --text-secondary: #8888a0;
+    --text-muted: #55556a;
+
+    --accent-green: #22c55e;
+    --accent-green-dim: #16a34a;
+    --accent-green-glow: rgba(34, 197, 94, 0.3);
+    --accent-green-subtle: rgba(34, 197, 94, 0.08);
+    --accent-green-border: rgba(34, 197, 94, 0.15);
+
+    --progress-bg: #1a1a2e;
+    --progress-border: rgba(255, 255, 255, 0.08);
+    --progress-outer-bg: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    --progress-outer-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    --progress-track-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+    --progress-glow-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 60%);
+    --progress-shine-gradient: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+
+    --ad-bg: rgba(255, 255, 255, 0.02);
+    --ad-border: rgba(255, 255, 255, 0.06);
+    --ad-text: #44445a;
+
+    --card-border: rgba(255, 255, 255, 0.05);
+    --card-border-hover: rgba(255, 255, 255, 0.1);
+    --card-shadow: none;
+    --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.3);
+
+    --ambient-1: rgba(34, 197, 94, 0.04);
+    --ambient-2: rgba(59, 130, 246, 0.03);
+    --ambient-3: rgba(168, 85, 247, 0.02);
+  }
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ambient background animation */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 30%, var(--ambient-1), transparent),
+    radial-gradient(ellipse 500px 300px at 80% 70%, var(--ambient-2), transparent),
+    radial-gradient(ellipse 400px 400px at 50% 50%, var(--ambient-3), transparent);
+  animation: ambientDrift 20s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes ambientDrift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(30px, -20px) rotate(3deg); }
+}
+
+/* ============================================
+   AD SLOTS
+   ============================================ */
+.ad-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.ad-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  background: var(--ad-bg);
+  border: 1px dashed var(--ad-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  width: 100%;
+  height: 100%;
+  min-height: 90px;
+  transition: all 0.3s var(--ease-out);
+}
+
+.ad-placeholder:hover {
+  border-color: var(--card-border-hover);
+  background: var(--bg-card-hover);
+}
+
+.ad-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--ad-text);
+}
+
+.ad-size {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* Top Ad */
+.ad-top {
+  padding: var(--space-md) var(--space-lg);
+  max-width: 728px;
+  margin: 0 auto;
+}
+
+.ad-top .ad-placeholder {
+  min-height: 90px;
+}
+
+/* Bottom Ad */
+.ad-bottom {
+  padding: var(--space-md) var(--space-lg);
+  max-width: 728px;
+  margin: 0 auto;
+}
+
+.ad-bottom .ad-placeholder {
+  min-height: 90px;
+}
+
+/* Side Ads */
+.ad-side {
+  display: none;
+}
+
+.ad-vertical {
+  flex-direction: column;
+  min-height: 600px;
+  width: 160px;
+}
+
+/* ============================================
+   MAIN LAYOUT
+   ============================================ */
+.main-layout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+  position: relative;
+  z-index: 1;
+}
+
+.content {
+  flex: 1;
+  max-width: 720px;
+  width: 100%;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg);
+  gap: var(--space-xl);
+}
+
+/* Year Badge */
+.year-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--accent-green-subtle);
+  border: 1px solid var(--accent-green-border);
+  border-radius: var(--radius-full);
+  animation: fadeInDown 0.6s var(--ease-out) both;
+}
+
+.hourglass {
+  font-size: 18px;
+  animation: hourglassFlip 3s ease-in-out infinite;
+}
+
+@keyframes hourglassFlip {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+}
+
+.year-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-green);
+  font-family: var(--font-mono);
+}
+
+/* Headline */
+.headline {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--text-secondary);
+  animation: fadeInUp 0.8s var(--ease-out) 0.1s both;
+}
+
+.year-num {
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.percent-highlight {
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--accent-green);
+  position: relative;
+}
+
+.percent-highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent-green);
+  border-radius: 2px;
+  opacity: 0.3;
+}
+
+/* Sub text */
+.sub-text {
+  font-size: 15px;
+  color: var(--text-muted);
+  font-weight: 400;
+  animation: fadeInUp 0.8s var(--ease-out) 0.2s both;
+}
+
+/* ============================================
+   PROGRESS BAR
+   ============================================ */
+.progress-container {
+  width: 100%;
+  animation: fadeInUp 0.8s var(--ease-out) 0.3s both;
+}
+
+.progress-outer {
+  padding: 6px;
+  background: var(--progress-outer-bg);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--progress-border);
+  box-shadow: var(--progress-outer-shadow);
+}
+
+.progress-track {
+  position: relative;
+  height: 56px;
+  background: var(--progress-bg);
+  border-radius: calc(var(--radius-xl) - 4px);
+  overflow: hidden;
+  box-shadow: var(--progress-track-shadow);
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #16a34a, #22c55e, #4ade80);
+  border-radius: calc(var(--radius-xl) - 4px);
+  transition: width 1.5s var(--ease-out);
+  box-shadow:
+    0 0 20px var(--accent-green-glow),
+    0 0 60px rgba(34, 197, 94, 0.15);
+}
+
+.progress-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--progress-glow-gradient);
+  border-radius: inherit;
+}
+
+.progress-shine {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 100%;
+  background: var(--progress-shine-gradient);
+  animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0%, 100% { opacity: 0; transform: translateX(-100%); }
+  50% { opacity: 1; transform: translateX(100%); }
+}
+
+.progress-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ============================================
+   STATS GRID
+   ============================================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  width: 100%;
+  animation: fadeInUp 0.8s var(--ease-out) 0.4s both;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg) var(--space-md);
+  transition: all 0.3s var(--ease-out);
+  cursor: default;
+  box-shadow: var(--card-shadow);
+}
+
+.stat-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--card-border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.stat-value {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   DATE / TIME INFO
+   ============================================ */
+.date-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s var(--ease-out) 0.5s both;
+}
+
+.date-display,
+.time-display {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  box-shadow: var(--card-shadow);
+}
+
+.date-icon,
+.time-icon {
+  font-size: 16px;
+}
+
+/* ============================================
+   FUN FACT
+   ============================================ */
+.fun-fact {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  max-width: 500px;
+  text-align: left;
+  animation: fadeInUp 0.8s var(--ease-out) 0.6s both;
+  box-shadow: var(--card-shadow);
+}
+
+.fun-fact-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.fun-fact-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  padding: var(--space-2xl) var(--space-lg) var(--space-lg);
+  text-align: center;
+  animation: fadeInUp 0.8s var(--ease-out) 0.7s both;
+}
+
+.footer p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.footer-note {
+  margin-top: var(--space-xs);
+}
+
+.footer a {
+  color: var(--accent-green-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer a:hover {
+  color: var(--accent-green);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+/* Desktop: show side ads */
+@media (min-width: 1200px) {
+  .ad-side {
+    display: flex;
+    position: sticky;
+    top: var(--space-lg);
+    align-self: flex-start;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-section {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .progress-track {
+    height: 44px;
+  }
+
+  .ad-top .ad-placeholder,
+  .ad-bottom .ad-placeholder {
+    min-height: 60px;
+  }
+
+  .ad-size {
+    font-size: 10px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+  }
+
+  .stat-card {
+    padding: var(--space-md) var(--space-sm);
+  }
+
+  .stat-value {
+    font-size: 1.3rem;
+  }
+
+  .date-info {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .progress-track {
+    height: 36px;
+  }
+
+  .headline {
+    font-size: 1.5rem;
+  }
+}
