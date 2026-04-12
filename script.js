@@ -5,13 +5,13 @@
 (function () {
   'use strict';
 
-  const MONTHS_ID = [
-    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+  const MONTHS_EN = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  const DAYS_ID = [
-    'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'
+  const DAYS_EN = [
+    'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
   ];
 
   /**
@@ -51,21 +51,21 @@
   }
 
   /**
-   * Format date in Indonesian
+   * Format date in English
    */
-  function formatDateID(date) {
-    const day = DAYS_ID[date.getDay()];
+  function formatDateEN(date) {
+    const day = DAYS_EN[date.getDay()];
     const d = date.getDate();
-    const month = MONTHS_ID[date.getMonth()];
+    const month = MONTHS_EN[date.getMonth()];
     const year = date.getFullYear();
-    return `${day}, ${d} ${month} ${year}`;
+    return `${day}, ${month} ${d}, ${year}`;
   }
 
   /**
    * Format time
    */
   function formatTime(date) {
-    return date.toLocaleTimeString('id-ID', {
+    return date.toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
@@ -81,12 +81,12 @@
     const weeksLeft = Math.floor(remaining / 7);
 
     const facts = [
-      `Tahun ${year} ${isLeapYear(year) ? 'adalah tahun kabisat (366 hari)' : 'bukan tahun kabisat (365 hari)'}.`,
-      `Masih ada ${weeksLeft} minggu tersisa di tahun ${year}.`,
-      `Kamu sudah melewati ${dayOfYear} dari ${totalDays} hari tahun ini.`,
-      `${remaining} hari lagi menuju tahun ${year + 1}! 🎉`,
-      `Jika tahun ini adalah baterai, masih tersisa ${(100 - percent).toFixed(1)}% daya.`,
-      `Tahun ini sudah berjalan selama ${Math.floor(dayOfYear * 24)} jam.`,
+      `Year ${year} ${isLeapYear(year) ? 'is a leap year (366 days)' : 'is not a leap year (365 days)'}.`,
+      `There are ${weeksLeft} weeks left in ${year}.`,
+      `You've made it through ${dayOfYear} of ${totalDays} days this year.`,
+      `${remaining} days left until ${year + 1}! 🎉`,
+      `If this year were a battery, it would have ${(100 - percent).toFixed(1)}% power remaining.`,
+      `This year has been running for ${Math.floor(dayOfYear * 24)} hours.`,
     ];
 
     // Pick a fact based on day (changes daily)
@@ -104,8 +104,6 @@
     progressFill: document.getElementById('progress-fill'),
     daysPassed: document.getElementById('days-passed'),
     daysRemaining: document.getElementById('days-remaining'),
-    currentDay: document.getElementById('current-day'),
-    totalDays: document.getElementById('total-days'),
     currentDateText: document.getElementById('current-date-text'),
     currentTimeText: document.getElementById('current-time-text'),
     funFactText: document.getElementById('fun-fact-text'),
@@ -133,7 +131,7 @@
     els.percentText.textContent = percentRounded.toFixed(2) + '%';
 
     // Update sub text
-    els.subText.textContent = `Hari ke-${dayOfYear} dari ${totalDaysInYear} hari di tahun ${year}`;
+    els.subText.textContent = `Day ${dayOfYear} of ${totalDaysInYear} days in ${year}`;
 
     // Animate progress bar (only if changed significantly)
     if (Math.abs(percent - lastPercent) > 0.001 || lastPercent === -1) {
@@ -144,11 +142,9 @@
     // Update stats
     els.daysPassed.textContent = dayOfYear;
     els.daysRemaining.textContent = remaining;
-    els.currentDay.textContent = dayOfYear;
-    els.totalDays.textContent = totalDaysInYear;
 
     // Update date/time
-    els.currentDateText.textContent = formatDateID(now);
+    els.currentDateText.textContent = formatDateEN(now);
     els.currentTimeText.textContent = formatTime(now);
 
     // Update fun fact (changes daily)
@@ -171,8 +167,6 @@
     const targets = [
       { el: els.daysPassed, target: dayOfYear },
       { el: els.daysRemaining, target: remaining },
-      { el: els.currentDay, target: dayOfYear },
-      { el: els.totalDays, target: totalDaysInYear },
     ];
 
     targets.forEach(({ el, target }) => {
