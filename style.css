@@ -411,53 +411,6 @@ body::before {
 }
 
 /* ============================================
-   STATS GRID
-   ============================================ */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-md);
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  animation: fadeInUp 0.8s var(--ease-out) 0.4s both;
-}
-
-.stat-card {
-  background: var(--bg-card);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-lg) var(--space-md);
-  transition: all 0.3s var(--ease-out);
-  cursor: default;
-  box-shadow: var(--card-shadow);
-}
-
-.stat-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--card-border-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--card-shadow-hover);
-}
-
-.stat-value {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 800;
-  font-family: var(--font-mono);
-  color: var(--text-primary);
-  line-height: 1;
-  margin-bottom: var(--space-xs);
-}
-
-.stat-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* ============================================
    DATE / TIME INFO
    ============================================ */
 .date-info {
@@ -588,10 +541,6 @@ body::before {
 
 /* Tablet */
 @media (max-width: 768px) {
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .hero-section {
     padding: var(--space-xl) var(--space-md);
   }
@@ -612,19 +561,6 @@ body::before {
 
 /* Mobile */
 @media (max-width: 480px) {
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-sm);
-  }
-
-  .stat-card {
-    padding: var(--space-md) var(--space-sm);
-  }
-
-  .stat-value {
-    font-size: 1.3rem;
-  }
-
   .date-info {
     flex-direction: column;
     gap: var(--space-sm);

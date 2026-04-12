@@ -102,8 +102,6 @@
     percentText: document.getElementById('percent-text'),
     subText: document.getElementById('sub-text'),
     progressFill: document.getElementById('progress-fill'),
-    daysPassed: document.getElementById('days-passed'),
-    daysRemaining: document.getElementById('days-remaining'),
     currentDateText: document.getElementById('current-date-text'),
     currentTimeText: document.getElementById('current-time-text'),
     funFactText: document.getElementById('fun-fact-text'),
@@ -139,10 +137,6 @@
       lastPercent = percent;
     }
 
-    // Update stats
-    els.daysPassed.textContent = dayOfYear;
-    els.daysRemaining.textContent = remaining;
-
     // Update date/time
     els.currentDateText.textContent = formatDateEN(now);
     els.currentTimeText.textContent = formatTime(now);
@@ -155,47 +149,11 @@
   }
 
   // ============================================
-  // COUNTER ANIMATION
-  // ============================================
-  function animateCounters() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const totalDaysInYear = getTotalDays(year);
-    const dayOfYear = getDayOfYear(now);
-    const remaining = totalDaysInYear - dayOfYear;
-
-    const targets = [
-      { el: els.daysPassed, target: dayOfYear },
-      { el: els.daysRemaining, target: remaining },
-    ];
-
-    targets.forEach(({ el, target }) => {
-      let current = 0;
-      const duration = 1200;
-      const steps = 40;
-      const increment = target / steps;
-      const stepMs = duration / steps;
-
-      const counter = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          current = target;
-          clearInterval(counter);
-        }
-        el.textContent = Math.round(current);
-      }, stepMs);
-    });
-  }
-
-  // ============================================
   // INITIALIZE
   // ============================================
   function init() {
     // Initial update
     update();
-
-    // Animate counters on load
-    animateCounters();
 
     // Update every second
     setInterval(update, 1000);
